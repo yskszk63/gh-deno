@@ -8,6 +8,10 @@ if [ $# -le 0 ]; then
   exit 1
 fi
 
+if [ "$1" = "--ping" ]; then
+  exit 0
+fi
+
 if command -v deno > /dev/null; then
   deno="$(command -v deno)"
 elif [ -f "$dir/deno/bin/deno" ]; then

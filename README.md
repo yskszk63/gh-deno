@@ -21,7 +21,16 @@ Welcome to Deno!
 
 Implement Plugin.
 
-TODO
+[yskszk63/gh-deno-example](https://github.com/yskszk63/gh-deno-example)
+
+```bash
+#!/bin/bash
+set -e
+
+# ensure installed yskszk63/gh-deno.
+gh deno --ping > /dev/null 2>&1 || gh extension install yskszk63/gh-deno
+exec gh deno 'https://cdn.jsdelivr.net/gh/yskszk63/gh-deno-example/index.ts'
+```
 
 ## License
 
