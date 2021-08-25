@@ -1,0 +1,32 @@
+#!/bin/sh
+set -e
+
+dir="$(dirname $0)"
+
+if [ $# -le 0 ]; then
+  echo "No argument supecified." 2>&1
+  exit 1
+fi
+
+if command -v deno > /dev/null; then
+  deno="$(command -v deno)"
+elif [ -f "$dir/deno/bin/deno" ]; then
+  deno="$dir/deno/bin/deno"
+else
+  echo "Could not found 'deno' your system."
+  if [ -t 0 ]; then
+    read -p "Can I download and install deno? [y/N]: " yn
+    case "$yn" in
+        [yY]*) ;;
+        *) exit 1;;
+    esac
+    export DENO_INSTALL="$dir/deno"
+    curl -fsSL https://deno.land/x/install/install.sh | sh
+    deno="$dir/deno/bin/deno"
+  else
+    exit 1
+  fi
+fi
+
+exec "$deno" run "$@"
+# vim:set sw=2 ts=2 sts=2:
